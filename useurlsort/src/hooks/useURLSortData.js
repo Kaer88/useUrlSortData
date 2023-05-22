@@ -3,10 +3,10 @@ import sortProductList from "../utils/sortUtil";
 import { useSearchParams } from "react-router-dom";
 
 
-export default function useUrlSortData(initialValue) {
+export default function useUrlSortData() {
     const [url, setUrl] = useSearchParams()
-
-    const [baseData, setBaseData] = useState(initialValue);
+    
+    const [baseData, setBaseData] = useState([]);
     const [currentUrlData, setCurrentUrlData] = useState({
         sort: url.get("sort"),
         order: url.get("order"),
@@ -17,7 +17,7 @@ export default function useUrlSortData(initialValue) {
         min: 0,
         max: null
     })
-
+    console.log(baseData)
     const [dataForDisplay, setDataForDisplay] = useState([])
 
 
@@ -50,9 +50,13 @@ export default function useUrlSortData(initialValue) {
 
         const untouchedData = Array.from(baseData);
       
-        const priceFilteredData = priceFilter(untouchedData)
-        console.log(priceFilteredData)
-
+        let priceFilteredData = [];
+        if(url.get("to") != null) {
+            priceFilteredData = priceFilter(untouchedData);
+        } else {
+            priceFilteredData = untouchedData
+        }
+        
         const sortedArray = sortProductList(priceFilteredData, currentUrlData)
 
 
