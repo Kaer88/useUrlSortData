@@ -6,6 +6,7 @@ export default function sortProductList(products, options) {
         case "price": copy.sort(comparePrice); break
         case "date": copy.sort(compareDate); break
         case "totalcost": copy.sort(compareTotalCost); break
+        case "username": copy.sort(compareUsers); break
     }
 
     if (options.order === "desc") copy.reverse()
@@ -19,6 +20,16 @@ const compareName = (a, b) => {
         return -1
     }
     if (a.title > b.title) {
+        return 1
+    }
+    return 0
+}
+
+const compareUsers = (a, b) => {
+    if (a.name < b.name) {
+        return -1
+    }
+    if (a.name > b.name) {
         return 1
     }
     return 0
