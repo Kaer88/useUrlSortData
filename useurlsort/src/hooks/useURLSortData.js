@@ -60,13 +60,6 @@ export default function useUrlSortData(initialValue) {
 
     }, [currentUrlData, baseData])
 
-
-
-
-    const sortData = () => {
-
-    }
-
     const initBaseData = data => {
 
         const max = data.reduce((acc, curr) => acc.price > curr.price ? acc : curr)
@@ -78,7 +71,7 @@ export default function useUrlSortData(initialValue) {
             min: min,
             max: max
         })
-        
+
         setBaseData(data)
     }
 
