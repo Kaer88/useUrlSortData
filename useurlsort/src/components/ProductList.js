@@ -10,8 +10,8 @@ export default function ProductList() {
     const [sortState, setSortState] = useState({
         sort: "name",
         order: "asc",
-        to: "",
-        from:""
+        to: 0,
+        from:0
     })
     const { sortedProducts, initBaseData, minMaxValues } = useUrlSortData(products)
     const [url, setUrl] = useSearchParams()

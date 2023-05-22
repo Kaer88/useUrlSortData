@@ -50,26 +50,41 @@ export default function useUrlSortData(initialValue) {
     useEffect(() => {
 
         const untouchedData = Array.from(baseData);
-        console.log("érintetlen adat: ", untouchedData)
-        const priceFilteredData = untouchedData.filter(product => product.price > Number(currentUrlData.from) && product.price < Number(currentUrlData.to))
-        console.log("filtered: ", priceFilteredData)
+        console.log(untouchedData)
+        const priceFilteredData = priceFilter(untouchedData)
+        console.log(priceFilteredData)
+
         const sortedArray = sortProductList(priceFilteredData, currentUrlData)
-        console.log("sorted ", sortedArray)
+
 
         setSortedProducts(sortedArray)
 
     }, [currentUrlData, baseData])
 
+    const priceFilter = (data) => {
+        let result = [];
+        const maxValue =
+            currentUrlData.to === null || currentUrlData.to === "" || currentUrlData.to == 0
+                ?
+                minMaxValues.max
+                :
+                currentUrlData.to
+        
+        result = Array.from(data).filter(product => product.price > Number(currentUrlData.from) && product.price < Number(maxValue))
+        console.log(result)
+        return result;
+    }
+
+
     const initBaseData = data => {
 
-        const max = data.reduce((acc, curr) => acc.price > curr.price ? acc : curr)
-
-        const min = data.reduce((acc, curr) => acc.price < curr.price ? acc : curr)
+        const maxPriceProduct = data.reduce((acc, curr) => acc.price > curr.price ? acc : curr)
+        const minPriceProduct = data.reduce((acc, curr) => acc.price < curr.price ? acc : curr)
 
 
         setMinMaxValues({
-            min: min,
-            max: max
+            min: minPriceProduct.price,
+            max: maxPriceProduct.price
         })
 
         setBaseData(data)
