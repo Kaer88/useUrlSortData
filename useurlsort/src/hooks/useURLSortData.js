@@ -78,6 +78,7 @@ export default function useUrlSortData(initialValue) {
             min: min,
             max: max
         })
+        
         setBaseData(data)
     }
 
