@@ -35,26 +35,3 @@ const compareTotalCost = (a, b) => {
 const compareDate = (a, b) => {
     return Date.parse(a.date) - Date.parse(b.date)
 }
-
-export const searchMinValue = (products) => {
-    let val = 0
-    Object.values(products).forEach(curr => {
-        if (Number(curr.price) < val) val = curr.price;
-    }
-    )
-    return val
-}
-export const searchMaxValue = (products) => {
-    let val = 0;
-    Object.values(products).forEach(curr => {
-        if (Number(curr.price) > val) val = curr.price;
-    }
-    )
-    return val
-}
-export const validPrice = (minValue, maxValue, price) => {
-    return minValue <= price && maxValue >= price;
-}
-export const priceFilter = (minValue, maxValue, products) => {
-    return products.filter(item => validPrice(minValue, maxValue, Number(item.price)))
-}
