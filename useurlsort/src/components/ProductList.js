@@ -11,16 +11,17 @@ export default function ProductList() {
         sort: "name",
         order: "asc"
     })
-    const { sortedProducts, setBaseData } = useUrlSortData(products)
+    const { sortedProducts, initBaseData, minMaxValues } = useUrlSortData(products)
     const [url, setUrl] = useSearchParams()
 
+    console.log(minMaxValues)
 
     useEffect(() => {
         fetch("https://team-02-project-fe323-default-rtdb.europe-west1.firebasedatabase.app/products.json")
             .then(res => res.json())
             .then(allProducts => {
                 setProducts(dataFormatter(allProducts));
-                setBaseData(dataFormatter(allProducts));
+                initBaseData(dataFormatter(allProducts));
 
                 // Problem: a hook meghívásakor az initialvalue nem jut el (időben?) a hook baseData state változójába
                 // emiatt kénytelen voltam a baseData setter függvényt ki
