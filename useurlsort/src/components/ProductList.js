@@ -65,7 +65,7 @@ export default function ProductList() {
                     <label>Max</label>
                     <input type="number" name="to" value={sortState.to} onChange={handleSortInputChange}></input>
                 </div>
-                <button onClick={clickHandler}>Rendezés</button>
+                <button onClick={clickHandler}>Rendezés és szűrés</button>
             </div>
             <hr></hr>
             {sortedProducts && sortedProducts.map(product => (
