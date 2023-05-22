@@ -36,7 +36,6 @@ const compareDate = (a, b) => {
     return Date.parse(a.date) - Date.parse(b.date)
 }
 
-
 export const searchMinValue = (products) => {
     let val = 0
     Object.values(products).forEach(curr => {

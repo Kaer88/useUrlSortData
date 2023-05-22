@@ -17,7 +17,7 @@ export default function useUrlSortData() {
         min: 0,
         max: null
     })
-    console.log(baseData)
+  
     const [dataForDisplay, setDataForDisplay] = useState([])
 
 
@@ -74,7 +74,7 @@ export default function useUrlSortData() {
                 currentUrlData.to
         
         result = Array.from(data).filter(product => product.price > Number(currentUrlData.from) && product.price < Number(maxValue))
-        console.log(result)
+      
         return result;
     }
 
