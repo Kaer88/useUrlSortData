@@ -12,7 +12,7 @@ export default function useUrlSortData(initialValue) {
         sort: url.get("sort"),
         order: url.get("order"),
         from: url.get("from"),
-        from: url.get("to")
+        to: url.get("to")
     })
     const [minMaxValues, setMinMaxValues] = useState({
         min: 0,
@@ -20,15 +20,17 @@ export default function useUrlSortData(initialValue) {
     })
 
     const [sortedProducts, setSortedProducts] = useState([])
- 
+
 
     useEffect(() => {
-       
+
         if (url.get("sort") != null) {
             setCurrentUrlData(
                 {
                     sort: url.get("sort"),
-                    order: url.get("order")
+                    order: url.get("order"),
+                    from: url.get("from"),
+                    to: url.get("to"),
                 }
             )
         }
@@ -38,29 +40,39 @@ export default function useUrlSortData(initialValue) {
         setCurrentUrlData(
             {
                 sort: url.get("sort"),
-                order: url.get("order")
+                order: url.get("order"),
+                from: url.get("from"),
+                to: url.get("to"),
             }
         )
     }, [url])
 
     useEffect(() => {
 
-        // itt kéne majd meghívni a ár szerint szűrő függvényt, 
-        // amit meg kell még amúgy írni
+        const untouchedData = Array.from(baseData);
+        console.log("érintetlen adat: ", untouchedData)
+        const priceFilteredData = untouchedData.filter(product => product.price > Number(currentUrlData.from) && product.price < Number(currentUrlData.to))
+        console.log("filtered: ", priceFilteredData)
+        const sortedArray = sortProductList(priceFilteredData, currentUrlData)
+        console.log("sorted ", sortedArray)
 
-        sortData()
+        setSortedProducts(sortedArray)
+
     }, [currentUrlData, baseData])
-    
+
+
+
+
     const sortData = () => {
-        setSortedProducts(sortProductList(baseData, currentUrlData))
+
     }
 
     const initBaseData = data => {
 
         const max = data.reduce((acc, curr) => acc.price > curr.price ? acc : curr)
-       
+
         const min = data.reduce((acc, curr) => acc.price < curr.price ? acc : curr)
-      
+
 
         setMinMaxValues({
             min: min,
@@ -73,7 +85,7 @@ export default function useUrlSortData(initialValue) {
         sortedProducts,
         initBaseData,
         minMaxValues
-        
+
     }
 
 }

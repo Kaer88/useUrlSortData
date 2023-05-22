@@ -16,7 +16,7 @@ export default function ProductList() {
     const { sortedProducts, initBaseData, minMaxValues } = useUrlSortData(products)
     const [url, setUrl] = useSearchParams()
 
-    console.log(minMaxValues)
+    
 
     useEffect(() => {
         fetch("https://team-02-project-fe323-default-rtdb.europe-west1.firebasedatabase.app/products.json")
@@ -61,9 +61,9 @@ export default function ProductList() {
                 </div>
                 <div>
                     <label>Min</label>
-                    <input type="number"></input>
-                    <label>Min</label>
-                    <input type="number"></input>
+                    <input type="number" name="from" value={sortState.from} onChange={handleSortInputChange}></input>
+                    <label>Max</label>
+                    <input type="number" name="to" value={sortState.to} onChange={handleSortInputChange}></input>
                 </div>
                 <button onClick={clickHandler}>Rendezés</button>
             </div>
