@@ -11,6 +11,8 @@ export default function useUrlSortData(initialValue) {
     const [currentUrlData, setCurrentUrlData] = useState({
         sort: url.get("sort"),
         order: url.get("order"),
+        from: url.get("from"),
+        from: url.get("to")
     })
     const [minMaxValues, setMinMaxValues] = useState({
         min: 0,
@@ -42,6 +44,10 @@ export default function useUrlSortData(initialValue) {
     }, [url])
 
     useEffect(() => {
+
+        // itt kéne majd meghívni a ár szerint szűrő függvényt, 
+        // amit meg kell még amúgy írni
+
         sortData()
     }, [currentUrlData, baseData])
     
@@ -51,11 +57,10 @@ export default function useUrlSortData(initialValue) {
 
     const initBaseData = data => {
 
-        //levizsgálni min-t és max-ot, eltárolni és visszaadni megjelenítéshez
         const max = data.reduce((acc, curr) => acc.price > curr.price ? acc : curr)
-        console.log("ez e max:", max)
+       
         const min = data.reduce((acc, curr) => acc.price < curr.price ? acc : curr)
-        console.log("ez e min:", min)
+      
 
         setMinMaxValues({
             min: min,

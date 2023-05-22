@@ -9,7 +9,9 @@ export default function ProductList() {
     const [products, setProducts] = useState([])
     const [sortState, setSortState] = useState({
         sort: "name",
-        order: "asc"
+        order: "asc",
+        to: "",
+        from:""
     })
     const { sortedProducts, initBaseData, minMaxValues } = useUrlSortData(products)
     const [url, setUrl] = useSearchParams()
@@ -23,8 +25,8 @@ export default function ProductList() {
                 setProducts(dataFormatter(allProducts));
                 initBaseData(dataFormatter(allProducts));
 
-                // Problem: a hook meghívásakor az initialvalue nem jut el (időben?) a hook baseData state változójába
-                // emiatt kénytelen voltam a baseData setter függvényt ki
+                // Problem: a hook meghívásakor az initialvalue nem jut el időben szinkronitás miatt a hook baseData state változójába
+                // emiatt kénytelen voltam a baseData setter függvényt ki, van erre más megoldás? 
             })
     }, [])
 
@@ -37,26 +39,32 @@ export default function ProductList() {
 
     const clickHandler = () => {
 
-        setUrl(`?sort=${sortState.sort}&order=${sortState.order}`)
-
-
-
-        // url.set('sort', sortState.sort);
-        // url.set('order', sortState.order)
+        setUrl(`?sort=${sortState.sort}&order=${sortState.order}&from=${sortState.from}&to=${sortState.to}`)
 
     }
+
+
     return (
         <div>
             <div>
-                <select onChange={handleSortInputChange} name="sort">
-                    <option value="name">name</option>
-                    <option value="price">Ár</option>
-                </select>
-                <select onChange={handleSortInputChange} name="order">
-                    <option value="desc">Csökkenő</option>
-                    <option value="asc">Növekvő</option>
+                <div>
+                    <select onChange={handleSortInputChange} name="sort">
+                        <option value="name">name</option>
+                        <option value="price">Ár</option>
+                    </select>
+                    <select onChange={handleSortInputChange} name="order">
+                        <option value="desc">Csökkenő</option>
+                        <option value="asc">Növekvő</option>
 
-                </select>
+                    </select>
+                    
+                </div>
+                <div>
+                    <label>Min</label>
+                    <input type="number"></input>
+                    <label>Min</label>
+                    <input type="number"></input>
+                </div>
                 <button onClick={clickHandler}>Rendezés</button>
             </div>
             <hr></hr>
