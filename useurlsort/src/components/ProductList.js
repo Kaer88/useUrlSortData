@@ -13,7 +13,7 @@ export default function ProductList() {
         to: 0,
         from:0
     })
-    const { sortedProducts, initBaseData, minMaxValues } = useUrlSortData(products)
+    const { dataForDisplay, initBaseData, minMaxValues } = useUrlSortData(products)
     const [url, setUrl] = useSearchParams()
 
     
@@ -68,7 +68,7 @@ export default function ProductList() {
                 <button onClick={clickHandler}>Rendezés és szűrés</button>
             </div>
             <hr></hr>
-            {sortedProducts && sortedProducts.map(product => (
+            {dataForDisplay && dataForDisplay.map(product => (
                 <div>
                     <p>{product.title}</p>
                     <p>{product.price}</p>
